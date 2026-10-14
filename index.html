@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELENA ROSTOVA | Photography & Visual Art Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            400: '#94a3b8',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#030712',
+                            accent: '#d97706',
+                            gold: '#f59e0b',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'Noto Sans TC', 'sans-serif'],
+                        display: ['Syne', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Noto+Sans+TC:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d97706;
+        }
+
+        /* Hero Image Scale & Entry Animations */
+        @keyframes heroScale {
+            0% { transform: scale(1.12); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-hero-img {
+            animation: heroScale 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Scroll Reveal Utility */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Image Card Dual Hover Interaction */
+        .gallery-card-img {
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease, opacity 0.5s ease;
+            filter: grayscale(85%) contrast(105%);
+        }
+        .gallery-card:hover .gallery-card-img {
+            transform: scale(1.08) rotate(0.5deg);
+            filter: grayscale(0%) contrast(100%);
+        }
+        .gallery-card .card-overlay {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .gallery-card:hover .card-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Hover Cursor Dot */
+        #custom-cursor {
+            pointer-events: none;
+            transition: transform 0.15s ease-out, opacity 0.2s ease;
+        }
+
+        /* Filter Switch Animation */
+        .gallery-item {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .gallery-item.hide {
+            opacity: 0;
+            transform: scale(0.85) translateY(20px);
+            pointer-events: none;
+            position: absolute;
+            visibility: hidden;
+        }
+
+        /* Parallax subtle background movement */
+        .parallax-bg {
+            transition: transform 0.2s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-brand-950 text-slate-100 font-sans selection:bg-brand-accent selection:text-black overflow-x-hidden relative">
+
+    <!-- Scroll Progress Indicator Bar -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-amber-500 via-orange-500 to-amber-300 z-50 transition-all duration-100" style="width: 0%"></div>
+
+    <!-- Custom Cursor Follower -->
+    <div id="custom-cursor" class="fixed w-8 h-8 rounded-full border border-amber-500/60 z-50 -translate-x-1/2 -translate-y-1/2 hidden md:block opacity-0 backdrop-blur-[2px]"></div>
+
+    <!-- Navigation Bar -->
+    <header id="main-nav" class="fixed top-0 left-0 w-full z-40 transition-all duration-500 py-6 px-6 md:px-12 backdrop-blur-none bg-transparent">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <!-- Brand Logo / Name -->
+            <a href="#home" class="group flex items-center gap-3 z-50">
+                <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-black font-bold font-serif text-lg group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-amber-500/20">
+                    ER
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-display tracking-widest text-lg font-bold uppercase text-white group-hover:text-amber-400 transition-colors">Elena Rostova</span>
+                    <span class="text-[10px] tracking-[0.25em] text-slate-400 uppercase font-light">Visual Artist & Photographer</span>
+                </div>
+            </a>
+
+            <!-- Desktop Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm tracking-wider uppercase font-medium text-slate-300">
+                <a href="#home" class="nav-link hover:text-amber-400 transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-amber-400 hover:after:w-full after:transition-all">首頁 Home</a>
+                <a href="#gallery" class="nav-link hover:text-amber-400 transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-amber-400 hover:after:w-full after:transition-all">作品集 Works</a>
+                <a href="#about" class="nav-link hover:text-amber-400 transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-amber-400 hover:after:w-full after:transition-all">關於 About</a>
+                <a href="#exhibitions" class="nav-link hover:text-amber-400 transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-amber-400 hover:after:w-full after:transition-all">展覽 Exhibitions</a>
+                <a href="#ai-record" class="nav-link hover:text-amber-400 transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-amber-400 hover:after:w-full after:transition-all flex items-center gap-1">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i> AI 協作紀錄
+                </a>
+                <a href="#contact" class="px-5 py-2.5 rounded-full border border-amber-500/40 text-amber-400 hover:bg-amber-500 hover:text-black transition-all duration-300 font-semibold tracking-normal text-xs uppercase">
+                    聯絡資訊 Contact
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobile-menu-btn" aria-label="Open menu" class="md:hidden text-white hover:text-amber-400 p-2 focus:outline-none z-50">
+                <i data-lucide="menu" class="w-7 h-7"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Fullscreen Overlay Navigation -->
+        <div id="mobile-menu" class="fixed inset-0 bg-brand-950/98 z-40 flex flex-col justify-center items-center gap-8 opacity-0 pointer-events-none transition-all duration-500 backdrop-blur-xl">
+            <a href="#home" class="mobile-nav-link text-2xl font-display uppercase tracking-widest text-slate-200 hover:text-amber-400">01. 首頁 Home</a>
+            <a href="#gallery" class="mobile-nav-link text-2xl font-display uppercase tracking-widest text-slate-200 hover:text-amber-400">02. 作品集 Works</a>
+            <a href="#about" class="mobile-nav-link text-2xl font-display uppercase tracking-widest text-slate-200 hover:text-amber-400">03. 關於 About</a>
+            <a href="#exhibitions" class="mobile-nav-link text-2xl font-display uppercase tracking-widest text-slate-200 hover:text-amber-400">04. 展覽 Exhibitions</a>
+            <a href="#ai-record" class="mobile-nav-link text-2xl font-display uppercase tracking-widest text-slate-200 hover:text-amber-400 text-amber-400">05. AI 協作紀錄</a>
+            <a href="#contact" class="mobile-nav-link text-2xl font-display uppercase tracking-widest text-slate-200 hover:text-amber-400">06. 聯絡 Contact</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION (Slide 6 Specification) -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <!-- Hero Background Canvas Image -->
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=2000&auto=format&fit=crop" 
+                 alt="Elena Rostova Visual Work" 
+                 class="w-full h-full object-cover object-center animate-hero-img opacity-40 scale-105 filter brightness-75 contrast-110">
+            <!-- Gradient Overlay Mask -->
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-950 via-brand-950/60 to-brand-950/30"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-brand-950/90 via-transparent to-brand-950/90"></div>
+        </div>
+
+        <!-- Hero Content Layer -->
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center flex flex-col items-center">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs uppercase tracking-widest mb-6 backdrop-blur-md animate-fade-in-up">
+                <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                <span>Solo Exhibition 2026 • Taipei & Berlin</span>
+            </div>
+
+            <h1 class="font-serif text-4xl sm:text-6xl md:text-8xl font-extrabold tracking-tight text-white mb-6 leading-tight uppercase animate-fade-in-up" style="animation-delay: 0.2s">
+                Capturing <span class="bg-gradient-to-r from-amber-200 via-amber-400 to-orange-500 bg-clip-text text-transparent italic">Silence</span> & Shadow
+            </h1>
+
+            <p class="max-w-2xl text-slate-300 text-base md:text-xl font-light leading-relaxed mb-10 tracking-wide animate-fade-in-up" style="animation-delay: 0.4s">
+                讓使用者像瀏覽攝影展一樣沉浸於光影細節之中。透過極簡美學與動態視覺，展現人像、自然風景與當代藝術的微觀詩意。
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center gap-4 animate-fade-in-up" style="animation-delay: 0.6s">
+                <a href="#gallery" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 text-black font-bold uppercase tracking-widest text-xs hover:shadow-xl hover:shadow-amber-500/25 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
+                    <span>瀏覽畫廊 Explore Works</span>
+                    <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+                </a>
+                <a href="#fullscreen-gallery-trigger" id="enter-fullscreen-btn" class="w-full sm:w-auto px-8 py-4 rounded-full bg-slate-900/80 border border-slate-700 text-slate-200 font-semibold uppercase tracking-widest text-xs hover:bg-slate-800 hover:border-amber-500/50 hover:text-white transition-all duration-300 backdrop-blur-md flex items-center justify-center gap-2">
+                    <i data-lucide="maximize" class="w-4 h-4 text-amber-400"></i>
+                    <span>全螢幕沉浸體驗 Fullscreen</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator (Requirement Slide 6) -->
+        <a href="#gallery" class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-400 hover:text-amber-400 transition-colors group cursor-pointer z-20">
+            <span class="text-[10px] tracking-[0.3em] uppercase font-mono group-hover:tracking-[0.4em] transition-all">Scroll Down</span>
+            <div class="w-5 h-9 rounded-full border-2 border-slate-600 group-hover:border-amber-400 p-1 flex justify-center transition-colors">
+                <div class="w-1 h-2 bg-amber-400 rounded-full animate-bounce mt-1"></div>
+            </div>
+        </a>
+    </section>
+
+    <!-- WORKS / GALLERY SECTION (Slide 7, 8, 12, 13) -->
+    <section id="gallery" class="py-24 px-6 md:px-12 max-w-7xl mx-auto relative">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b border-slate-800/80 pb-8 reveal">
+            <div>
+                <span class="text-amber-500 font-mono text-xs uppercase tracking-widest block mb-2">// Curated Collection</span>
+                <h2 class="font-serif text-3xl md:text-5xl font-bold uppercase tracking-tight text-white">
+                    Selected Works <span class="text-slate-500 text-xl font-normal">/ 作品集</span>
+                </h2>
+            </div>
+            <p class="text-slate-400 text-sm max-w-md">
+                點擊相片開啟高清燈箱 (Lightbox)，或選擇特定風格分類查看。滑鼠懸停觸發雙重視覺動態。
+            </p>
+        </div>
+
+        <!-- Category Filter Buttons (Slide 8 Requirement: At least 3 categories with smooth transition) -->
+        <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-12 reveal">
+            <button data-filter="all" class="filter-btn active px-5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 bg-amber-500 text-black shadow-lg shadow-amber-500/20">
+                ALL 全部
+            </button>
+            <button data-filter="portrait" class="filter-btn px-5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 bg-slate-900 border border-slate-800 text-slate-300 hover:border-amber-500/50 hover:text-white">
+                PORTRAIT 人像
+            </button>
+            <button data-filter="landscape" class="filter-btn px-5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 bg-slate-900 border border-slate-800 text-slate-300 hover:border-amber-500/50 hover:text-white">
+                LANDSCAPE 風景
+            </button>
+            <button data-filter="commercial" class="filter-btn px-5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 bg-slate-900 border border-slate-800 text-slate-300 hover:border-amber-500/50 hover:text-white">
+                COMMERCIAL 商業
+            </button>
+            <button data-filter="fashion" class="filter-btn px-5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 bg-slate-900 border border-slate-800 text-slate-300 hover:border-amber-500/50 hover:text-white">
+                FASHION 時尚
+            </button>
+            <button data-filter="street" class="filter-btn px-5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 bg-slate-900 border border-slate-800 text-slate-300 hover:border-amber-500/50 hover:text-white">
+                STREET 街拍
+            </button>
+        </div>
+
+        <!-- Gallery Grid (Masonry style layout via CSS Grid) -->
+        <div id="gallery-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[600px]">
+
+            <!-- Work Item 1: Portrait -->
+            <div class="gallery-item gallery-card group cursor-pointer relative rounded-2xl overflow-hidden bg-slate-900 border border-slate-800/80 reveal" data-category="portrait" data-id="1">
+                <div class="aspect-[4/5] overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1000&auto=format&fit=crop" 
+                         alt="Ethereal Gazes" 
+                         class="gallery-card-img w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
+                </div>
+                <!-- Hover Reveal Overlay Info -->
+                <div class="card-overlay absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono text-amber-400 uppercase tracking-widest">PORTRAIT • 2025</span>
+                        <div class="flex gap-2">
+                            <button onclick="openLightbox(0)" aria-label="Quick View Lightbox" class="p-2 rounded-full bg-slate-800/80 text-white hover:bg-amber-500 hover:text-black transition-colors" title="開啟 Lightbox">
+                                <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                            </button>
+                            <button onclick="openProjectDetail(0)" aria-label="Open Project Details" class="p-2 rounded-full bg-slate-800/80 text-white hover:bg-amber-500 hover:text-black transition-colors" title="專案詳細頁">
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-white group-hover:text-amber-300 transition-colors">
+                        Ethereal Gazes / 凝視之域
+                    </h3>
+                    <p class="text-xs text-slate-300 line-clamp-2 mt-1">
+                        探討都市孤寂與眼神傳達的隱密對話，採用極高對比天然自然光影捕捉。
+                    </p>
+                </div>
+            </div>
+
+            <!-- Work Item 2: Landscape -->
+            <div class="gallery-item gallery-card group cursor-pointer relative rounded-2xl overflow-hidden bg-slate-900 border border-slate-800/80 reveal" data-category="landscape" data-id="2">
+                <div class="aspect-[4/5] overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1000&auto=format&fit=crop" 
+                         alt="Silent Echoes" 
+                         class="gallery-card-img w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
+                </div>
+                <div class="card-overlay absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono text-amber-400 uppercase tracking-widest">LANDSCAPE • 2026</span>
+                        <div class="flex gap-2">
+                            <button onclick="openLightbox(1)" aria-label="Quick View Lightbox" class="p-2 rounded-full bg-slate-800/80 text-white hover:bg-amber-500 hover:text-black transition-colors">
+                                <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                            </button>
+                            <button onclick="openProjectDetail(1)" aria-label="Open Project Details" class="p-2 rounded-full bg-slate-800/80 text-white hover:bg-amber-500 hover:text-black transition-colors">
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-white group-hover:text-amber-300 transition-colors">
+                        Silent Echoes / 靜謐山谷
+                    </h3>
+                    <p class="text-xs text-slate-300 line-clamp-2 mt-1">
+                        冰島清晨的高原倒影，紀錄未被人類騷擾的純粹大自然律動。
+                    </p>
+                </div>
+            </div>
+
+            <!-- Work Item 3: Commercial -->
+            <div class="gallery-item gallery-card group cursor-pointer relative rounded-2xl overflow-hidden bg-slate-900 border border-slate-800/80 reveal" data-category="commercial" data-id="3">
+                <div class="aspect-[4/5] overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1000&auto=format&fit=crop" 
+                         alt="Minimalist Chrono" 
+                         class="gallery-card-img w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
+                </div>
+                <div class="card-overlay absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono text-amber-400 uppercase tracking-widest">COMMERCIAL • 2025</span>
+                        <div class="flex gap-2">
+                            <button onclick="openLightbox(2)" aria-label="Quick View Lightbox" class="p-2 rounded-full bg-slate-800/80 text-white hover:bg-amber-500 hover:text-black transition-colors">
+                                <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                            </button>
+                            <button onclick="openProjectDetail(2)" aria-label="Open Project Details" class="p-2 rounded-full bg-slate-800/80 text-white hover:bg-amber-500 hover:text-black transition-colors">
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-white group-hover:text-amber-300 transition-colors">
+                        Chrono Elegance / 極簡工藝
+                    </h3>
+                    <p class="text-xs text-slate-300 line-clamp-2 mt-1">
+                        為瑞士高端鐘錶品牌打造的極簡產品平面廣告與微距攝影視覺。
+                    </p>
+                </div>
+            </div>
+
+            <!-- Work Item 4: Fashion -->
+            <div class="gallery-item gallery-card group cursor-pointer relative rounded-2xl overflow-hidden bg-slate-900 border border-slate-800/80 reveal" data-category="fashion" data-id="4">
+                <div class="aspect-[4/5] overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop" 
+                         alt="Vogue Avant-Garde" 
+                         class="gallery-card-img w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
+                </div>
+                <div class="card-overlay absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono text-amber-400 uppercase tracking-widest">FASHION • 2026</span>
+                        <div class="flex gap-2">
+                            <button onclick="openLightbox(3)" aria-label="Quick View Lightbox" class="p-2 rounded-full bg-slate-800/80 text-white hover:bg-amber-500 hover:text-black transition-colors">
+                                <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                            </button>
+                            <button onclick="openProjectDetail(3)" aria-label="Open Project Details" class="p-2 rounded-full bg-slate-800/80 text-white hover:bg-amber-500 hover:text-black transition-colors">
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-white group-hover:text-amber-300 transition-colors">
+                        Avant-Garde Silhouette / 前衛廓形
+                    </h3>
+                    <p class="text-xs text-slate-300 line-clamp-2 mt-1">
+                        時裝週別冊特輯，融合建築結構感與實驗性時尚造型。
+                    </p>
+                </div>
+            </div>
+
+            <!-- Work Item 5: Street -->
+            <div class="gallery-item gallery-card group cursor-pointer relative rounded-2xl overflow-hidden bg-slate-900 border border-slate-800/80 reveal" data-category="street" data-id="5">
+                <div class="aspect-[4/5] overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1477959858617-67f30ac4ce78?q=80&w=1000&auto=format&fit=crop" 
+                         alt="Urban Nocturne" 
+                         class="gallery-card-img w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
+                </div>
+                <div class="card-overlay absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono text-amber-400 uppercase tracking-widest">STREET • 2025</span>
+                        <div class="flex gap-2">
+                            <button onclick="openLightbox(4)" aria-label="Quick View Lightbox" class="p-2 rounded-full bg-slate-800/80 text-white hover:bg-amber-500 hover:text-black transition-colors">
+                                <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                            </button>
+                            <button onclick="openProjectDetail(4)" aria-label="Open Project Details" class="p-2 rounded-full bg-slate-800/80 text-white hover:bg-amber-500 hover:text-black transition-colors">
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-white group-hover:text-amber-300 transition-colors">
+                        Tokyo Nocturne / 夜行東京
+                    </h3>
+                    <p class="text-xs text-slate-300 line-clamp-2 mt-1">
+                        雨後霓虹光影與街頭孤獨行人的瞬時捕捉紀實。
+                    </p>
+                </div>
+            </div>
+
+            <!-- Work Item 6: Landscape/Art -->
+            <div class="gallery-item gallery-card group cursor-pointer relative rounded-2xl overflow-hidden bg-slate-900 border border-slate-800/80 reveal" data-category="landscape" data-id="6">
+                <div class="aspect-[4/5] overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=1000&auto=format&fit=crop" 
+                         alt="Oceanic Rhythm" 
+                         class="gallery-card-img w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
+                </div>
+                <div class="card-overlay absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono text-amber-400 uppercase tracking-widest">LANDSCAPE • 2026</span>
+                        <div class="flex gap-2">
+                            <button onclick="openLightbox(5)" aria-label="Quick View Lightbox" class="p-2 rounded-full bg-slate-800/80 text-white hover:bg-amber-500 hover:text-black transition-colors">
+                                <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                            </button>
+                            <button onclick="openProjectDetail(5)" aria-label="Open Project Details" class="p-2 rounded-full bg-slate-800/80 text-white hover:bg-amber-500 hover:text-black transition-colors">
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-white group-hover:text-amber-300 transition-colors">
+                        Oceanic Rhythm / 海浪的微觀
+                    </h3>
+                    <p class="text-xs text-slate-300 line-clamp-2 mt-1">
+                        快門1/4000秒下的浪花結構，將大自然的波濤幻化為液態雕塑。
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION (Slide 5: Information Architecture Requirement) -->
+    <section id="about" class="py-24 px-6 md:px-12 bg-slate-900/50 border-y border-slate-800/80 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Photographer Portrait -->
+            <div class="lg:col-span-5 relative reveal">
+                <div class="relative rounded-2xl overflow-hidden border border-slate-700/60 group">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1000&auto=format&fit=crop" 
+                         alt="Elena Rostova Portrait" 
+                         class="w-full h-auto object-cover filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <span class="text-amber-400 font-mono text-xs uppercase tracking-widest block">Artist & Director</span>
+                        <h3 class="font-serif text-2xl font-bold text-white">Elena Rostova</h3>
+                    </div>
+                </div>
+                <!-- Accent Frame -->
+                <div class="absolute -bottom-4 -right-4 w-full h-full border-2 border-amber-500/20 rounded-2xl -z-10 pointer-events-none"></div>
+            </div>
+
+            <!-- Artist Statement & Details -->
+            <div class="lg:col-span-7 flex flex-col justify-center reveal">
+                <span class="text-amber-500 font-mono text-xs uppercase tracking-widest mb-2">// Philosophy & Artist Statement</span>
+                <h2 class="font-serif text-3xl md:text-5xl font-bold text-white mb-6 uppercase leading-tight">
+                    "Photography is the art of <span class="italic text-amber-400">freezing shadow</span> into poetry."
+                </h2>
+                <p class="text-slate-300 text-base md:text-lg font-light leading-relaxed mb-6">
+                    現居台北與柏林，跨足商業時尚廣告、當代人像與藝術展覽領域。我相信優秀的攝影作品不只是影像記錄，而是一次透過鏡頭與內心深處的對話。
+                </p>
+                <p class="text-slate-400 text-sm leading-relaxed mb-8">
+                    自 2018 年起，作品曾刊登於 Vogue, Harper's BAZAAR, Kinfolk，並於東京、巴黎、台北舉行過數場個展與聯展。
+                </p>
+
+                <!-- Key Metrics / Stats -->
+                <div class="grid grid-cols-3 gap-6 py-6 border-y border-slate-800 mb-8">
+                    <div>
+                        <div class="font-serif text-3xl md:text-4xl font-bold text-amber-400">12+</div>
+                        <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Years Experience</div>
+                    </div>
+                    <div>
+                        <div class="font-serif text-3xl md:text-4xl font-bold text-amber-400">45+</div>
+                        <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Exhibitions</div>
+                    </div>
+                    <div>
+                        <div class="font-serif text-3xl md:text-4xl font-bold text-amber-400">180+</div>
+                        <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Featured Works</div>
+                    </div>
+                </div>
+
+                <!-- Signature -->
+                <div class="flex items-center gap-4">
+                    <span class="font-serif italic text-2xl text-amber-200/80">Elena Rostova</span>
+                    <span class="text-slate-600">|</span>
+                    <span class="text-xs font-mono text-slate-400 uppercase">Principal Photographer</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXHIBITION / PROJECTS SECTION (Slide 5 Requirement) -->
+    <section id="exhibitions" class="py-24 px-6 md:px-12 max-w-7xl mx-auto relative">
+        <div class="mb-16 text-center max-w-2xl mx-auto reveal">
+            <span class="text-amber-500 font-mono text-xs uppercase tracking-widest block mb-2">// Worldwide Showcases</span>
+            <h2 class="font-serif text-3xl md:text-5xl font-bold uppercase text-white mb-4">
+                Exhibitions & Timeline
+            </h2>
+            <p class="text-slate-400 text-sm">近年的展覽紀錄與專案主題。</p>
+        </div>
+
+        <div class="space-y-8 relative before:absolute before:left-4 md:before:left-1/2 before:top-0 before:bottom-0 before:w-px before:bg-slate-800">
+            <!-- Event 1 -->
+            <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pl-10 md:pl-0 reveal">
+                <div class="md:w-1/2 md:pr-12 md:text-right">
+                    <span class="text-xs font-mono text-amber-400 uppercase tracking-widest">MAY 2026 • TAIPEI FINE ARTS MUSEUM</span>
+                    <h3 class="font-serif text-2xl font-bold text-white mt-1">Lumina Silentium: 靜默之光個展</h3>
+                    <p class="text-xs text-slate-400 mt-2">展出超過 40 幅大尺碼底片人像作品，探討當代社會孤獨感。</p>
+                </div>
+                <div class="absolute left-2 md:left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-amber-500 border-4 border-brand-950 shadow-md shadow-amber-500/50"></div>
+                <div class="md:w-1/2 md:pl-12 text-slate-400 text-xs font-mono">
+                    [CURATED BY TFAM] • SOLO EXHIBITION
+                </div>
+            </div>
+
+            <!-- Event 2 -->
+            <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pl-10 md:pl-0 reveal">
+                <div class="md:w-1/2 md:pr-12 md:text-right text-slate-400 text-xs font-mono order-2 md:order-1">
+                    [PARIS PHOTO FESTIVAL] • GROUP SHOW
+                </div>
+                <div class="absolute left-2 md:left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-slate-700 border-4 border-brand-950"></div>
+                <div class="md:w-1/2 md:pl-12 order-1 md:order-2">
+                    <span class="text-xs font-mono text-amber-400 uppercase tracking-widest">OCT 2025 • GRAND PALAIS, PARIS</span>
+                    <h3 class="font-serif text-2xl font-bold text-white mt-1">Shadows & Architecture 巴黎攝影聯展</h3>
+                    <p class="text-xs text-slate-400 mt-2">獲邀與歐洲當代攝影師共同展出都市結構與光影專題。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI COLLABORATION RECORD SECTION (Requirement Slide 17 & 19) -->
+    <section id="ai-record" class="py-24 px-6 md:px-12 bg-slate-900/80 border-t border-slate-800 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-6 reveal">
+                <div>
+                    <div class="inline-flex items-center gap-2 text-amber-400 font-mono text-xs uppercase tracking-widest mb-2">
+                        <i data-lucide="cpu" class="w-4 h-4"></i>
+                        <span>AI-Assisted Web Design Process</span>
+                    </div>
+                    <h2 class="font-serif text-3xl md:text-5xl font-bold uppercase text-white">
+                        AI 協作紀錄 <span class="text-slate-500 text-lg font-normal">/ AI Collaboration Log</span>
+                    </h2>
+                </div>
+                <p class="text-slate-400 text-sm max-w-md">
+                    展示如何使用 Prompt 提示詞進行需求提問、程式產生、除錯與版面修改（符合作業規格要求）。
+                </p>
+            </div>
+
+            <!-- Workflow Steps Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 reveal">
+                <!-- Step 1 -->
+                <div class="p-6 rounded-2xl bg-brand-950 border border-slate-800 flex flex-col justify-between hover:border-amber-500/40 transition-colors">
+                    <div>
+                        <span class="px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 font-mono text-[10px] uppercase">Phase 1</span>
+                        <h4 class="font-bold text-white mt-3 text-base">Prompt 提示詞設計</h4>
+                        <p class="text-xs text-slate-400 mt-2 font-mono leading-relaxed bg-slate-900 p-3 rounded border border-slate-800">
+                            "請協助建立一個攝影師作品集 HTML/CSS/JS 網站，需包含 Hero 縮放淡入動畫、分類 Filter... "
+                        </p>
+                    </div>
+                    <div class="mt-4 text-[11px] text-amber-400/80 font-mono">Status: Formulated</div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="p-6 rounded-2xl bg-brand-950 border border-slate-800 flex flex-col justify-between hover:border-amber-500/40 transition-colors">
+                    <div>
+                        <span class="px-2.5 py-1 rounded bg-blue-500/10 text-blue-400 font-mono text-[10px] uppercase">Phase 2</span>
+                        <h4 class="font-bold text-white mt-3 text-base">AI Code Generation</h4>
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                            產生包含 Tailwind CSS 樣式、CSS keyframes 動畫、HTML5 語意化結構與 JavaScript DOM 控制器。
+                        </p>
+                    </div>
+                    <div class="mt-4 text-[11px] text-blue-400 font-mono">Status: Generated</div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="p-6 rounded-2xl bg-brand-950 border border-slate-800 flex flex-col justify-between hover:border-amber-500/40 transition-colors">
+                    <div>
+                        <span class="px-2.5 py-1 rounded bg-purple-500/10 text-purple-400 font-mono text-[10px] uppercase">Phase 3</span>
+                        <h4 class="font-bold text-white mt-3 text-base">Student Modifications</h4>
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                            修改微調 Lightbox 燈箱轉場時間 ($0.9 \to 1$)，補足懸停雙重變化 (Grayscale + Zoom)，改善 Mobile Menu 觸控體驗。
+                        </p>
+                    </div>
+                    <div class="mt-4 text-[11px] text-purple-400 font-mono">Status: Refined</div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="p-6 rounded-2xl bg-brand-950 border border-slate-800 flex flex-col justify-between hover:border-amber-500/40 transition-colors">
+                    <div>
+                        <span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 font-mono text-[10px] uppercase">Phase 4</span>
+                        <h4 class="font-bold text-white mt-3 text-base">Final Submission</h4>
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                            完成響應式測試 (Desktop/Tablet/Mobile)，確認過場順暢，部署至 Vercel / GitHub Pages。
+                        </p>
+                    </div>
+                    <div class="mt-4 text-[11px] text-emerald-400 font-mono">Status: Completed</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION (Slide 5 Requirement) -->
+    <section id="contact" class="py-24 px-6 md:px-12 max-w-7xl mx-auto relative">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center reveal">
+            <div>
+                <span class="text-amber-500 font-mono text-xs uppercase tracking-widest block mb-2">// Get In Touch</span>
+                <h2 class="font-serif text-3xl md:text-5xl font-bold uppercase text-white mb-6">
+                    Start A Project <span class="italic text-amber-400">Together</span>
+                </h2>
+                <p class="text-slate-300 text-sm md:text-base mb-8 leading-relaxed">
+                    不論是商業攝影、時尚誌專題合作或藝術品收藏諮詢，歡迎隨時透過下方表單或 Email 聯絡。
+                </p>
+
+                <div class="space-y-4 font-mono text-xs text-slate-300">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="mail" class="w-4 h-4 text-amber-400"></i>
+                        <span>contact@elenarostova.art</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-amber-400"></i>
+                        <span>Studio Taipei & Berlin</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="instagram" class="w-4 h-4 text-amber-400"></i>
+                        <span>@elena_rostova_official</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <form onsubmit="event.preventDefault(); alert('感謝您的來信！訊息已成功傳送。');" class="p-8 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+                <div>
+                    <label class="block text-xs font-mono text-slate-400 mb-2 uppercase">Your Name 姓名</label>
+                    <input type="text" required placeholder="例如: Alex Chen" class="w-full px-4 py-3 rounded-lg bg-brand-950 border border-slate-800 text-white focus:outline-none focus:border-amber-500 transition-colors text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-slate-400 mb-2 uppercase">Email 地址</label>
+                    <input type="email" required placeholder="alex@example.com" class="w-full px-4 py-3 rounded-lg bg-brand-950 border border-slate-800 text-white focus:outline-none focus:border-amber-500 transition-colors text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-slate-400 mb-2 uppercase">Message 訊息內容</label>
+                    <textarea rows="4" required placeholder="請簡單說明您的合作需求..." class="w-full px-4 py-3 rounded-lg bg-brand-950 border border-slate-800 text-white focus:outline-none focus:border-amber-500 transition-colors text-sm"></textarea>
+                </div>
+                <button type="submit" class="w-full py-4 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-bold uppercase tracking-widest text-xs transition-colors shadow-lg shadow-amber-500/20">
+                    發送訊息 Send Message
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-8 px-6 border-t border-slate-900 text-center text-xs text-slate-500 font-mono">
+        <p>© 2026 ELENA ROSTOVA STUDIO. ALL RIGHTS RESERVED. DESIGNED FOR PORTFOLIO ASSIGNMENT.</p>
+    </footer>
+
+    <!-- INTERACTIVE LIGHTBOX MODAL (Slide 9 Requirement) -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-400">
+        <!-- Close Button -->
+        <button id="lightbox-close-btn" class="absolute top-6 right-6 p-3 text-slate-400 hover:text-white hover:bg-slate-800/80 rounded-full transition-colors z-50">
+            <i data-lucide="x" class="w-7 h-7"></i>
+        </button>
+
+        <!-- Previous Button -->
+        <button id="lightbox-prev-btn" class="absolute left-4 md:left-8 p-3 text-slate-400 hover:text-white hover:bg-slate-800/80 rounded-full transition-colors z-50">
+            <i data-lucide="chevron-left" class="w-8 h-8"></i>
+        </button>
+
+        <!-- Next Button -->
+        <button id="lightbox-next-btn" class="absolute right-4 md:right-8 p-3 text-slate-400 hover:text-white hover:bg-slate-800/80 rounded-full transition-colors z-50">
+            <i data-lucide="chevron-right" class="w-8 h-8"></i>
+        </button>
+
+        <!-- Main Content -->
+        <div class="max-w-5xl w-full max-h-[90vh] flex flex-col md:flex-row bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-2xl scale-95 transition-transform duration-300" id="lightbox-card">
+            <!-- Image Area -->
+            <div class="md:w-2/3 bg-black flex items-center justify-center relative min-h-[300px]">
+                <img id="lightbox-img" src="" alt="" class="max-h-[75vh] w-auto object-contain transition-opacity duration-300">
+            </div>
+            <!-- Info Area -->
+            <div class="md:w-1/3 p-8 flex flex-col justify-between bg-slate-900">
+                <div>
+                    <span id="lightbox-category" class="text-xs font-mono text-amber-400 uppercase tracking-widest block mb-2">CATEGORY</span>
+                    <h3 id="lightbox-title" class="font-serif text-2xl font-bold text-white mb-2">Title</h3>
+                    <span id="lightbox-year" class="text-xs text-slate-500 font-mono block mb-4">YEAR: 2026</span>
+                    <p id="lightbox-desc" class="text-xs text-slate-300 leading-relaxed mb-6">Description content...</p>
+                </div>
+                <div class="border-t border-slate-800 pt-4">
+                    <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider block mb-1">EXIF Camera Spec</span>
+                    <p id="lightbox-exif" class="text-xs font-mono text-slate-400">Leica M11 • Summilux 35mm f/1.4</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FULLSCREEN GALLERY EXPERIENCE MODAL (Slide 10 Requirement) -->
+    <div id="fullscreen-gallery-modal" class="fixed inset-0 z-50 bg-black flex flex-col justify-between p-6 opacity-0 pointer-events-none transition-all duration-500">
+        <!-- Top Toolbar -->
+        <div class="flex justify-between items-center z-10">
+            <div class="flex items-center gap-3">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></span>
+                <span class="text-xs font-mono text-slate-300 uppercase tracking-widest">FULLSCREEN IMMERSIVE MODE</span>
+            </div>
+            <button id="fullscreen-close-btn" class="px-4 py-2 rounded-full bg-slate-900 border border-slate-700 text-slate-300 hover:text-white hover:border-amber-400 transition-all text-xs font-mono uppercase">
+                ESC Close 退出
+            </button>
+        </div>
+
+        <!-- Center Main Showcase Image -->
+        <div class="relative flex-1 flex items-center justify-center my-4 overflow-hidden">
+            <img id="fullscreen-img" src="" alt="Fullscreen Display" class="max-h-[80vh] max-w-full object-contain transition-all duration-700">
+            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-center bg-black/70 backdrop-blur-md px-6 py-3 rounded-full border border-slate-800">
+                <h4 id="fullscreen-title" class="font-serif text-lg text-white font-bold">Project Title</h4>
+            </div>
+        </div>
+
+        <!-- Bottom Controls -->
+        <div class="flex justify-between items-center z-10 max-w-xl mx-auto w-full">
+            <button id="fullscreen-prev" class="px-6 py-2 rounded-full bg-slate-900 hover:bg-amber-500 hover:text-black text-xs font-mono uppercase text-slate-300 transition-colors">
+                ← Prev 上一張
+            </button>
+            <span id="fullscreen-counter" class="text-xs font-mono text-amber-400">1 / 6</span>
+            <button id="fullscreen-next" class="px-6 py-2 rounded-full bg-slate-900 hover:bg-amber-500 hover:text-black text-xs font-mono uppercase text-slate-300 transition-colors">
+                Next 下一張 →
+            </button>
+        </div>
+    </div>
+
+    <!-- PROJECT DETAIL VIEW DRAWER (Slide 15 Requirement) -->
+    <div id="project-detail-drawer" class="fixed inset-y-0 right-0 w-full md:w-[600px] bg-slate-950 z-50 shadow-2xl border-l border-slate-800 p-8 overflow-y-auto transform translate-x-full transition-transform duration-500 ease-in-out">
+        <button id="drawer-close-btn" class="mb-8 p-2 rounded-full bg-slate-900 text-slate-400 hover:text-white transition-colors">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+
+        <div id="drawer-content" class="space-y-8">
+            <div>
+                <span id="detail-category" class="text-xs font-mono text-amber-400 uppercase tracking-widest block mb-1">PORTRAIT</span>
+                <h2 id="detail-title" class="font-serif text-3xl font-bold text-white mb-4">Ethereal Gazes</h2>
+                <div class="flex gap-4 text-xs font-mono text-slate-400 py-3 border-y border-slate-800">
+                    <span>Date: <strong id="detail-date" class="text-slate-200">2025</strong></span>
+                    <span>Client: <strong class="text-slate-200">Vogue Taiwan</strong></span>
+                </div>
+            </div>
+
+            <div class="rounded-xl overflow-hidden border border-slate-800">
+                <img id="detail-hero-img" src="" alt="Project Hero" class="w-full h-auto object-cover">
+            </div>
+
+            <div>
+                <h4 class="text-xs font-mono text-slate-400 uppercase tracking-widest mb-2">// Creative Concept 創意理念</h4>
+                <p id="detail-concept" class="text-sm text-slate-300 leading-relaxed">
+                    本專案探討現代人在繁華都市背景下的內心對話，利用強烈明暗對比（Chiaroscuro）強調內心情感。
+                </p>
+            </div>
+
+            <div>
+                <h4 class="text-xs font-mono text-slate-400 uppercase tracking-widest mb-4">// Additional Images 更多作品圖</h4>
+                <div id="detail-gallery" class="grid grid-cols-2 gap-4">
+                    <!-- Dynamic images populated via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Sample Works Dataset (Requirement Slide 7 & 15)
+        const worksData = [
+            {
+                id: 0,
+                title: "Ethereal Gazes / 凝視之域",
+                category: "PORTRAIT",
+                filterCat: "portrait",
+                year: "2025",
+                img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1000&auto=format&fit=crop",
+                desc: "探討都市孤寂與眼神傳達的隱密對話，採用極高對比天然自然光影捕捉。",
+                exif: "Hasselblad H6D-100c • 100mm f/2.2 • ISO 100",
+                concept: "利用人物眼神的微小變化，搭配深色背景，傳遞出在喧囂都市中獨自凝視的寂靜力量。",
+                extraImgs: [
+                    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=600&auto=format&fit=crop"
+                ]
+            },
+            {
+                id: 1,
+                title: "Silent Echoes / 靜謐山谷",
+                category: "LANDSCAPE",
+                filterCat: "landscape",
+                year: "2026",
+                img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1000&auto=format&fit=crop",
+                desc: "冰島清晨的高原倒影，紀錄未被人類騷擾的純粹大自然律動。",
+                exif: "Sony A1 • FE 16-35mm f/2.8 GM II • ISO 50",
+                concept: "長曝技術捕捉晨霧瀰漫於湖面上的瞬間，將時間凝結於地表最原始的狀態。",
+                extraImgs: [
+                    "https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=600&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1426604966848-d7adac402bff?q=80&w=600&auto=format&fit=crop"
+                ]
+            },
+            {
+                id: 2,
+                title: "Chrono Elegance / 極簡工藝",
+                category: "COMMERCIAL",
+                filterCat: "commercial",
+                year: "2025",
+                img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1000&auto=format&fit=crop",
+                desc: "為瑞士高端鐘錶品牌打造的極簡產品平面廣告與微距攝影視覺。",
+                exif: "Canon EOS R3 • RF 100mm f/2.8L Macro • ISO 100",
+                concept: "透過精密棚拍控光，呈現金屬拉絲材質與精密機芯齒輪的工藝細節。",
+                extraImgs: [
+                    "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=600&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop"
+                ]
+            },
+            {
+                id: 3,
+                title: "Avant-Garde Silhouette / 前衛廓形",
+                category: "FASHION",
+                filterCat: "fashion",
+                year: "2026",
+                img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop",
+                desc: "時裝週別冊特輯，融合建築結構感與實驗性時尚造型。",
+                exif: "Leica SL2 • APO-Summicron-SL 50mm f/2 • ISO 200",
+                concept: "強調服飾裁切的俐落線條與麻豆動作間的幾何呼應。",
+                extraImgs: [
+                    "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=600&auto=format&fit=crop"
+                ]
+            },
+            {
+                id: 4,
+                title: "Tokyo Nocturne / 夜行東京",
+                category: "STREET",
+                filterCat: "street",
+                year: "2025",
+                img: "https://images.unsplash.com/photo-1477959858617-67f30ac4ce78?q=80&w=1000&auto=format&fit=crop",
+                desc: "雨後霓虹光影與街頭孤獨行人的瞬時捕捉紀實。",
+                exif: "Fujifilm GFX 100 II • GF 63mm f/2.8 • ISO 800",
+                concept: "運用慢速快門與地面的雨水倒影，構築出兼具未來感與鄉愁的賽博朋克夜色。",
+                extraImgs: [
+                    "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=600&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1514565131-fce0801e5785?q=80&w=600&auto=format&fit=crop"
+                ]
+            },
+            {
+                id: 5,
+                title: "Oceanic Rhythm / 海浪的微觀",
+                category: "LANDSCAPE",
+                filterCat: "landscape",
+                year: "2026",
+                img: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=1000&auto=format&fit=crop",
+                desc: "快門1/4000秒下的浪花結構，將大自然的波濤幻化為液態雕塑。",
+                exif: "Nikon Z9 • NIKKOR Z 400mm f/2.8 TC VR S • ISO 400",
+                concept: "高速快門凍結水滴散射光線的動態，將瞬間定格為可永久欣賞的雕塑藝術品。",
+                extraImgs: [
+                    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?q=80&w=600&auto=format&fit=crop"
+                ]
+            }
+        ];
+
+        let currentLightboxIndex = 0;
+        let currentFullscreenIndex = 0;
+
+        // 1. Scroll Progress & Navigation Effect (Slide 11 Scroll Interaction)
+        window.addEventListener('scroll', () => {
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-progress").style.width = scrolled + "%";
+
+            // Navbar Blur Background Switch on Scroll
+            const nav = document.getElementById('main-nav');
+            if (winScroll > 50) {
+                nav.classList.add('bg-brand-950/85', 'backdrop-blur-md', 'py-4', 'shadow-2xl');
+                nav.classList.remove('py-6', 'bg-transparent');
+            } else {
+                nav.classList.remove('bg-brand-950/85', 'backdrop-blur-md', 'py-4', 'shadow-2xl');
+                nav.classList.add('py-6', 'bg-transparent');
+            }
+        });
+
+        // 2. Custom Hover Cursor (Visual Accent)
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursor.style.opacity = '1';
+        });
+
+        // 3. Category Filter Animation Logic (Slide 8 Requirement)
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-amber-500', 'text-black', 'shadow-lg');
+                    b.classList.add('bg-slate-900', 'text-slate-300');
+                });
+                btn.classList.add('active', 'bg-amber-500', 'text-black', 'shadow-lg');
+                btn.classList.remove('bg-slate-900', 'text-slate-300');
+
+                const filter = btn.getAttribute('data-filter');
+
+                galleryItems.forEach(item => {
+                    const itemCat = item.getAttribute('data-category');
+                    if (filter === 'all' || itemCat === filter) {
+                        item.classList.remove('hide');
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1) translateY(0)';
+                        }, 50);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.85) translateY(20px)';
+                        setTimeout(() => {
+                            item.classList.add('hide');
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // 4. Lightbox Modal Control Functions (Slide 9 Timeline Animations)
+        const lightboxModal = document.getElementById('lightbox-modal');
+        const lightboxCard = document.getElementById('lightbox-card');
+
+        function openLightbox(index) {
+            currentLightboxIndex = index;
+            updateLightboxContent();
+            lightboxModal.classList.remove('opacity-0', 'pointer-events-none');
+            lightboxCard.classList.remove('scale-95');
+            lightboxCard.classList.add('scale-100');
+        }
+
+        function closeLightbox() {
+            lightboxModal.classList.add('opacity-0', 'pointer-events-none');
+            lightboxCard.classList.remove('scale-100');
+            lightboxCard.classList.add('scale-95');
+        }
+
+        function updateLightboxContent() {
+            const data = worksData[currentLightboxIndex];
+            document.getElementById('lightbox-img').src = data.img;
+            document.getElementById('lightbox-category').innerText = data.category;
+            document.getElementById('lightbox-title').innerText = data.title;
+            document.getElementById('lightbox-year').innerText = `YEAR: ${data.year}`;
+            document.getElementById('lightbox-desc').innerText = data.desc;
+            document.getElementById('lightbox-exif').innerText = data.exif;
+        }
+
+        document.getElementById('lightbox-close-btn').addEventListener('click', closeLightbox);
+        document.getElementById('lightbox-prev-btn').addEventListener('click', () => {
+            currentLightboxIndex = (currentLightboxIndex - 1 + worksData.length) % worksData.length;
+            updateLightboxContent();
+        });
+        document.getElementById('lightbox-next-btn').addEventListener('click', () => {
+            currentLightboxIndex = (currentLightboxIndex + 1) % worksData.length;
+            updateLightboxContent();
+        });
+
+        // 5. Fullscreen Gallery Experience Mode (Slide 10 Requirement)
+        const fullscreenModal = document.getElementById('fullscreen-gallery-modal');
+        
+        document.getElementById('enter-fullscreen-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            currentFullscreenIndex = 0;
+            updateFullscreenContent();
+            fullscreenModal.classList.remove('opacity-0', 'pointer-events-none');
+        });
+
+        document.getElementById('fullscreen-close-btn').addEventListener('click', () => {
+            fullscreenModal.classList.add('opacity-0', 'pointer-events-none');
+        });
+
+        function updateFullscreenContent() {
+            const data = worksData[currentFullscreenIndex];
+            document.getElementById('fullscreen-img').src = data.img;
+            document.getElementById('fullscreen-title').innerText = data.title;
+            document.getElementById('fullscreen-counter').innerText = `${currentFullscreenIndex + 1} / ${worksData.length}`;
+        }
+
+        document.getElementById('fullscreen-prev').addEventListener('click', () => {
+            currentFullscreenIndex = (currentFullscreenIndex - 1 + worksData.length) % worksData.length;
+            updateFullscreenContent();
+        });
+
+        document.getElementById('fullscreen-next').addEventListener('click', () => {
+            currentFullscreenIndex = (currentFullscreenIndex + 1) % worksData.length;
+            updateFullscreenContent();
+        });
+
+        // 6. Keyboard Shortcuts Navigation (Slide 10 & ESC Close)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+                fullscreenModal.classList.add('opacity-0', 'pointer-events-none');
+                closeDrawer();
+            }
+            if (!lightboxModal.classList.contains('opacity-0')) {
+                if (e.key === 'ArrowLeft') document.getElementById('lightbox-prev-btn').click();
+                if (e.key === 'ArrowRight') document.getElementById('lightbox-next-btn').click();
+            } else if (!fullscreenModal.classList.contains('opacity-0')) {
+                if (e.key === 'ArrowLeft') document.getElementById('fullscreen-prev').click();
+                if (e.key === 'ArrowRight') document.getElementById('fullscreen-next').click();
+            }
+        });
+
+        // 7. Project Detail Side Drawer (Slide 15 Requirement)
+        const drawer = document.getElementById('project-detail-drawer');
+        
+        function openProjectDetail(index) {
+            const data = worksData[index];
+            document.getElementById('detail-category').innerText = data.category;
+            document.getElementById('detail-title').innerText = data.title;
+            document.getElementById('detail-date').innerText = data.year;
+            document.getElementById('detail-hero-img').src = data.img;
+            document.getElementById('detail-concept').innerText = data.concept;
+
+            const extraGrid = document.getElementById('detail-gallery');
+            extraGrid.innerHTML = '';
+            data.extraImgs.forEach(url => {
+                const imgEl = document.createElement('img');
+                imgEl.src = url;
+                imgEl.className = "rounded-lg w-full h-32 object-cover border border-slate-800";
+                extraGrid.appendChild(imgEl);
+            });
+
+            drawer.classList.remove('translate-x-full');
+        }
+
+        function closeDrawer() {
+            drawer.classList.add('translate-x-full');
+        }
+
+        document.getElementById('drawer-close-btn').addEventListener('click', closeDrawer);
+
+        // 8. Mobile Menu Navigation Trigger
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.contains('opacity-100');
+            if (isOpen) {
+                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+            } else {
+                mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+                mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+            }
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+            });
+        });
+
+        // 9. Intersection Observer for Scroll Reveals
+        const observerOptions = { threshold: 0.15 };
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    </script>
+</body>
+</html>
